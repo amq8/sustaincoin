@@ -1,0 +1,25 @@
+#!/usr/bin/make -f
+# -*- mode: makefile; coding: utf-8 -*-
+
+DEB_INSTALL_EXAMPLES_SustainCoind += debian/examples/*
+DEB_INSTALL_MANPAGES_SustainCoind += debian/manpages/*
+
+%:
+	dh --with bash-completion $@
+
+override_dh_auto_build:
+	cd src; $(MAKE) -f makefile.unix SustainCoind USE_ASM=1 USE_LEVELDB=1
+	$(MAKE)
+
+override_dh_auto_clean:
+	if [ -f Makefile ]; then $(MAKE) clean; else rm -rf build/; rm -f SustainCoin-qt; fi
+	cd src; $(MAKE) -f makefile.unix clean
+
+override_dh_auto_configure:
+	qmake SustainCoin-qt.pro USE_ASM=1 USE_LEVELDB=1
+
+# Ensure wrapper is set executable
+binary-post-install/SustainCoind:
+	chmod +x $(cdbs_curdestdir)usr/bin/SustainCoind
+binary-post-install/SustainCoin-qt:
+	chmod +x $(cdbs_curdestdir)usr/bin/SustainCoin-qt

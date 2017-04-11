@@ -1,0 +1,11 @@
+[Unit]
+Description=SustainCoin daemon serivce
+After=network.target
+
+[Service]
+Type=simple
+User=SustainCoin
+ExecStart=/opt/SustainCoin/SustainCoind
+
+[Install]
+WantedBy=multi-user.target

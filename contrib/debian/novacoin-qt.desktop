@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=SustainCoin
+Comment=SustainCoin P2P Cryptocurrency
+Comment[ru]=SustainCoin, P2P криптовалюта
+Comment[fr]=SustainCoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=SustainCoin, eşten eşe kriptografik sanal para birimi
+Exec=/usr/bin/SustainCoin-qt
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/SustainCoin80.xpm
+MimeType=x-scheme-handler/SustainCoin;
+Categories=Office;

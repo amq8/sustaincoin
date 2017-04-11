@@ -1,0 +1,68 @@
+#!/bin/sh
+
+# PROVIDE: SustainCoin
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# SustainCoin_enable (bool): Set to NO by default. Set this variable to YES if you want to enable SustainCoin service.
+# SustainCoin_config (path): Set to /usr/local/etc/SustainCoin.conf by default.
+# SustainCoin_user:  The user account SustainCoin daemon runs as. It uses 'root' user by default.
+# SustainCoin_group: The group account SustainCoin daemon runs as. It uses 'wheel' group by default.
+# SustainCoin_datadir (str): Default to "/var/db/SustainCoin". Base data directory.
+
+. /etc/rc.subr
+
+name=SustainCoin
+rcvar=SustainCoin_enable
+
+: ${SustainCoin_enable:=NO}
+: ${SustainCoin_config=/usr/local/etc/SustainCoin.conf}
+: ${SustainCoin_datadir=/var/db/SustainCoin}
+: ${SustainCoin_user="root"}
+: ${SustainCoin_group="wheel"}
+
+required_files=${SustainCoin_config}
+command=/usr/local/bin/SustainCoind
+SustainCoin_chdir=${SustainCoin_datadir}
+pidfile="${SustainCoin_datadir}/SustainCoind.pid"
+stop_cmd=SustainCoin_stop
+command_args="-conf=${SustainCoin_config} -datadir=${SustainCoin_datadir} -daemon -pid=${pidfile}"
+start_precmd="${name}_prestart"
+
+SustainCoin_create_datadir()
+{
+	echo "Creating data directory"
+	eval mkdir -p ${SustainCoin_datadir}
+	[ $? -eq 0 ] && chown -R ${SustainCoin_user}:${SustainCoin_group} ${SustainCoin_datadir}
+}
+
+SustainCoin_prestart()
+{
+	if [ ! -d "${SustainCoin_datadir}/." ]; then
+		SustainCoin_create_datadir || return 1
+	fi
+}
+
+SustainCoin_requirepidfile()
+{
+	if [ ! "0`check_pidfile ${pidfile} ${command}`" -gt 1 ]; then
+		echo "${name} not running? (check $pidfile)."
+		exit 1
+	fi
+}
+
+SustainCoin_stop()
+{
+    SustainCoin_requirepidfile
+
+	echo "Stopping ${name}."
+	eval ${command} -conf=${SustainCoin_config} -datadir=${SustainCoin_datadir} stop
+	wait_for_pids ${rc_pid}
+}
+
+load_rc_config $name
+run_rc_command "$1"

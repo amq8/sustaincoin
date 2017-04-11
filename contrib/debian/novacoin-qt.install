@@ -1,0 +1,5 @@
+SustainCoin-qt usr/bin
+share/pixmaps/SustainCoin32.xpm usr/share/pixmaps
+share/pixmaps/SustainCoin80.xpm usr/share/pixmaps
+debian/SustainCoin-qt.desktop usr/share/applications
+debian/SustainCoin-qt.protocol usr/share/kde4/services/

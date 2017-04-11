@@ -1,0 +1,11 @@
+[Protocol]
+exec=SustainCoin-qt '%u'
+protocol=SustainCoin
+input=none
+output=none
+helper=true
+listing=
+reading=false
+writing=false
+makedir=false
+deleting=false

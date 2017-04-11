@@ -1,0 +1,2 @@
+debian/bin/SustainCoind usr/bin
+src/SustainCoind usr/lib/SustainCoin
