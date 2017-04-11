@@ -1,0 +1,9 @@
+Building SustainCoin
+
+See doc/readme-qt.rst for instructions on building SustainCoin Qt,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of SustainCoin.
+
+See doc/build-*.txt for instructions on building SustainCoind,
+the intended-for-services, no-graphical-interface, reference
+implementation of SustainCoin.
