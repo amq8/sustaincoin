@@ -1,7 +1,4 @@
-Sustaincoin - Pow/Pos hybrid
+Public GIT for the Sustaincoin - Pow/Pos hybrid cryptocurrency project.
 
-Algo - X11
-Total coin - 22 Million
+<a href="https://sustaincoin.com">website</a>
 
-RPC Port: 27817
-Network Port: 27816
